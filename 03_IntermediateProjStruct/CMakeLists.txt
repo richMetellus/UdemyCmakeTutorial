@@ -13,9 +13,9 @@ project(
     VERSION 1.0.0 
     LANGUAGES C CXX)
 
-add_library(MyLibrary STATIC mylib.cc)
+add_library(MyLibrary STATIC src/mylib.cc)
 #          User defined name
 #                  v
-add_executable(MyExecutable main.cc) # compile the source files into an executable
+add_executable(MyExecutable app/main.cc) # compile the source files into an executable
 
 target_link_libraries(MyExecutable PUBLIC MyLibrary) # link our library object file(s) ex mylib.o to the executable
