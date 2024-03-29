@@ -18,4 +18,5 @@ add_library(MyLibrary STATIC src/mylib.cc)
 #                  v
 add_executable(MyExecutable app/main.cc) # compile the source files into an executable
 
+target_include_directories(MyExecutable PRIVATE src)
 target_link_libraries(MyExecutable PUBLIC MyLibrary) # link our library object file(s) ex mylib.o to the executable
