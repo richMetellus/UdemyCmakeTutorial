@@ -13,5 +13,7 @@ project(
     VERSION 1.0.0 
     LANGUAGES C CXX)
 
+#. Order of listing did not cause any build issue but it customary to list the subdirectory 
+# as per the order the target are build. Depedencies first
 add_subdirectory(src)
 add_subdirectory(app)
