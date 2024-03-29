@@ -15,4 +15,4 @@ project(
 
 #          User defined name
 #                  v
-add_executable(MyExecutable main.cc) # compile the source files into an executable
+add_executable(MyExecutable main.cc mylib.cc) # compile the source files into an executable
