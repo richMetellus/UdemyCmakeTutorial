@@ -32,6 +32,7 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 # with options think boolean
 #       option_varialbe name        optional description              default value
 option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
+
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
 # it customary to list the subdirectory 
 # as per the order the target are build. Depedencies first
@@ -40,6 +41,8 @@ option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
 #. If the target is not defined first, how can we use the target? so the Order here matter
 add_subdirectory(src)
 add_subdirectory(inc)
+add_subdirectory(config)
+
 if (IS_COMPILE_EXECUTABLE_SET)
     add_subdirectory(app)
 else()
