@@ -35,9 +35,21 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
 
 #. Load and run our custom cmake module 
-include(AddGitSubmodule) 
-#. call our custom cmake function 
-add_git_submodule(external/json)
+include(AddGitSubmodule)
+#. Load and run cmake built-in modules 
+include(FetchContent)
+
+#. call cmake built-in cmake
+#. Clone the github Cmake project nlohman_json non-recursively
+#. Note: Project has to be a cmake project
+FetchContent_Declare(
+    nlohman_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.11.2
+    GIT_SHALLOW TRUE
+)
+#. Load the project into our build project
+FetchContent_MakeAvailable(nlohman_json)
 
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
 # it customary to list the subdirectory 
