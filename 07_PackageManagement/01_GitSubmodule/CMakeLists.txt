@@ -19,7 +19,8 @@ project(
 set(CMAKE_CXX_STANDARD          17) #override the compiler default standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #required a compiler that has fully implmented the C++ standard 17
 set(CMAKE_CXX_EXTENSIONS        OFF) #turn off GCC C++ extensions
-
+#. Add our customs cmake module, to cmake search path
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Custom Variable names
 #--------------------------
 # varialbe name      value
@@ -32,6 +33,11 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 # with options think boolean
 #       option_varialbe name        optional description              default value
 option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
+
+#. Load and run our custom cmake module 
+include(AddGitSubmodule) 
+#. call our custom cmake function 
+add_git_submodule(external/json)
 
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
 # it customary to list the subdirectory 
