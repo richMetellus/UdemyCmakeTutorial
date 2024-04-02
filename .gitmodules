@@ -1,6 +1,4 @@
 [submodule "07_PackageManagement/01_GitSubmodule/external/json"]
 	path = 07_PackageManagement/01_GitSubmodule/external/json
 	url = git@github.com:nlohmann/json.git
-[submodule "07_PackageManagement/02_FetchContent/external/json"]
-	path = 07_PackageManagement/02_FetchContent/external/json
-	url = git@github.com:nlohmann/json.git
+
