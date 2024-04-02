@@ -36,10 +36,10 @@ option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
 
 #. Load and run our custom cmake module 
 include(AddGitSubmodule)
-#. Load and run cmake built-in modules 
+#. Load and run cmake built-in module FetchContent
 include(FetchContent)
 
-#. call cmake built-in cmake
+#. call cmake built-in module functions
 #. Clone the github Cmake project nlohman_json non-recursively
 #. Note: Project has to be a cmake project
 FetchContent_Declare(
@@ -50,6 +50,34 @@ FetchContent_Declare(
 )
 #. Load the project into our build project
 FetchContent_MakeAvailable(nlohman_json)
+
+FetchContent_Declare(
+    fmt_dif_name
+    GIT_REPOSITORY https://github.com/fmtlib/fmt
+    GIT_TAG 10.2.1
+    GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(fmt_dif_name)
+
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog
+    GIT_TAG v1.13.0
+    GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(spdlog)
+
+FetchContent_Declare(
+    cxxopts
+    GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+    GIT_TAG v3.1.1
+    GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(cxxopts)
+
+FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2
+    GIT_TAG v2.13.9
+    GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(Catch2)
 
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
 # it customary to list the subdirectory 
