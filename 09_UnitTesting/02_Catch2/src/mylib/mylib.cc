@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdint>
 #include "mylib.h"
 
 /**
@@ -8,4 +9,9 @@
 void print_hello_world()
 {
     std::cout << "Hello World!\n";
+}
+
+std::uint32_t Factorial( std::uint32_t number ) 
+{
+  return number <= 1 ? Factorial(number-1) * number : 1;
 }
