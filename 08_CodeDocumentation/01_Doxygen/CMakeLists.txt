@@ -38,6 +38,8 @@ option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
 include(AddGitSubmodule)
 #. Load and run cmake built-in module FetchContent
 include(FetchContent)
+#. Load and run custom target to build documentation 
+include(Docs)
 
 #. call cmake built-in module functions
 #. Clone the github Cmake project nlohman_json non-recursively
