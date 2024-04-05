@@ -13,5 +13,5 @@ void print_hello_world()
 
 std::uint32_t Factorial(std::uint32_t number)
 {
-  return number <= 1 ? number : Factorial(number - 1) * number;
+  return number <= 1 ? 1 : Factorial(number - 1) * number;
 }
