@@ -23,7 +23,7 @@ set(CMAKE_CXX_EXTENSIONS        OFF) #turn off GCC C++ extensions
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Custom Variable names
 #--------------------------
-# varialbe name      value
+# variable name      value
 #         v            v
 set(MY_LIB_NAME "MyLibrary") # quotation marks are optional, cmake can do automatic type
 set(MY_EXECUTABLE_NAME MyExecutable)
@@ -31,8 +31,9 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 # User defined CMake Options
 # -------------------------------
 # with options think boolean
-#       option_varialbe name        optional description              default value
+#       option_variable name        optional description              default value
 option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
+option(ENABLE_TESTING "Enable a Unit Testing Build" OFF)
 
 #. Load and run our custom cmake module 
 include(AddGitSubmodule)
@@ -83,7 +84,7 @@ FetchContent_MakeAvailable(Catch2)
 
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
 # it customary to list the subdirectory 
-# as per the order the target are build. Depedencies first
+# as per the order the target are build. Dependencies first
 #. in inc folder we are using the target, so the target MyLibary must be defined 
 # first, that's why add_subdirectory(inc) is 2nd.
 #. If the target is not defined first, how can we use the target? so the Order here matter
