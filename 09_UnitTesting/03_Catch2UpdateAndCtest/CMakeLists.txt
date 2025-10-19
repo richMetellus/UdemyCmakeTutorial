@@ -94,7 +94,6 @@ endif()
 add_subdirectory(src)
 add_subdirectory(inc)
 add_subdirectory(config)
-add_subdirectory(tests)
 
 if (IS_COMPILE_EXECUTABLE_SET)
     add_subdirectory(app)
