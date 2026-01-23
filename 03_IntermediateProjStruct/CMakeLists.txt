@@ -14,6 +14,6 @@ project(
     LANGUAGES C CXX)
 
 #. Order of listing did not cause any build issue but it customary to list the subdirectory 
-# as per the order the target are build. Depedencies first
+# as per the order the target are build. Dependencies first
 add_subdirectory(src)
 add_subdirectory(app)

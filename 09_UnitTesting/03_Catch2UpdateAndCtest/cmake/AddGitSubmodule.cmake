@@ -8,7 +8,7 @@ function(add_git_submodule relative_dir)
     #. Check if the submodule is a cmake project. use full directory path for it to work. 
     if (NOT EXISTS ${FULL_DIR}/CMakeLists.txt)
         #. call the git process to init the submodule. find_package(Git REQUIRED)
-        # will set the varialbe ${GIT_EXECUTABLE}
+        # will set the variable ${GIT_EXECUTABLE}
         execute_process(COMMAND ${GIT_EXECUTABLE}
             submodule update --init --recursive -- ${relative_dir}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
