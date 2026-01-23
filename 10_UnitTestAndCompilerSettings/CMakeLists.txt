@@ -33,6 +33,7 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 # with options think boolean
 #       option_variable name        optional description              default value
 option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
+option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
 
 #. Load and run our custom cmake module 
 include(AddGitSubmodule)
@@ -47,18 +48,18 @@ include(Docs)
 FetchContent_Declare(
     nlohman_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.2
+    GIT_TAG v3.11.3
     GIT_SHALLOW TRUE
 )
 #. Load the project into our build project
 FetchContent_MakeAvailable(nlohman_json)
 
 FetchContent_Declare(
-    fmt_dif_name
+    fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt
-    GIT_TAG 10.2.1
+    GIT_TAG 9.1.0
     GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(fmt_dif_name)
+FetchContent_MakeAvailable(fmt)
 
 FetchContent_Declare(
     spdlog
@@ -74,26 +75,34 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(cxxopts)
 
-FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2
-    GIT_TAG v2.13.9
-    GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(Catch2)
+if(ENABLE_TESTING)
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2
+        GIT_TAG v3.5.3
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(Catch2)
+    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+endif()
 
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
 # it customary to list the subdirectory 
 # as per the order the target are build. Dependencies first
-#. in inc folder we are using the target, so the target MyLibary must be defined 
+#. in inc folder we are using the target, so the target MyLibrary must be defined 
 # first, that's why add_subdirectory(inc) is 2nd.
 #. If the target is not defined first, how can we use the target? so the Order here matter
 add_subdirectory(src)
 add_subdirectory(inc)
 add_subdirectory(config)
-add_subdirectory(tests)
 
 if (IS_COMPILE_EXECUTABLE_SET)
     add_subdirectory(app)
 else()
     message("Building the project without creating the executable")
+endif()
+
+if(ENABLE_TESTING)
+    include(CTest)
+    enable_testing()
+    add_subdirectory(tests)
 endif()
