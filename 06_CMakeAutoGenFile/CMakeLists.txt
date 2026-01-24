@@ -17,7 +17,7 @@ project(
 # Overriding CMake Built-in Variable 
 #------------------------------------
 set(CMAKE_CXX_STANDARD          17) #override the compiler default standard
-set(CMAKE_CXX_STANDARD_REQUIRED ON) #required a compiler that has fully implmented the C++ standard 17
+set(CMAKE_CXX_STANDARD_REQUIRED ON) #required a compiler that has fully implemented the C++ standard 17
 set(CMAKE_CXX_EXTENSIONS        OFF) #turn off GCC C++ extensions
 
 # Custom Variable names
