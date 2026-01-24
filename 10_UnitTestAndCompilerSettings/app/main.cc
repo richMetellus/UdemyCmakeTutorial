@@ -12,7 +12,7 @@ int main()
     std::cout << "Project name: " << project_name << std::endl;
     std::cout << "Project version: " << project_version << '\n';
     
-    int i; // unused variable
+    // int i; // unused variable
     
     std::cout << "NLOHMANN JSON Lib Version:" << NLOHMANN_JSON_VERSION_MAJOR << "." 
               << NLOHMANN_JSON_VERSION_MINOR << "."
