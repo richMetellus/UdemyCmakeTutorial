@@ -32,8 +32,10 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 # -------------------------------
 # with options think boolean
 #       option_variable name        optional description              default value
-option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" OFF)
+option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" ON)
 option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
+option(CRS_ENABLE_WARNINGS "Enable compiler warnings" ON) # This should always be enabled
+option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON) # this option is up to you..too strict
 
 #. Load and run our custom cmake module 
 include(AddGitSubmodule)
@@ -41,6 +43,10 @@ include(AddGitSubmodule)
 include(FetchContent)
 #. Load and run custom target to build documentation 
 include(Docs)
+
+if(CRS_ENABLE_WARNINGS)
+    include(CrsWarnings)
+endif()
 
 #. call cmake built-in module functions
 #. Clone the github Cmake project nlohman_json non-recursively
