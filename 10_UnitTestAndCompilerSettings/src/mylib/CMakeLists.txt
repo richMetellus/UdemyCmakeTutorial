@@ -16,3 +16,6 @@ if (${CRS_ENABLE_WARNINGS})
         ${CRS_ENABLE_WARNINGS_AS_ERRORS}
     )
 endif()
+
+# Enable print_hello_world block
+target_compile_definitions(${MY_LIB_NAME} PUBLIC PRINTER_ACTIVE)
