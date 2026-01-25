@@ -37,6 +37,10 @@ option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(CRS_ENABLE_WARNINGS "Enable compiler warnings" ON) # This should always be enabled
 option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON) # this option is up to you..too strict
 
+option(CRS_ENABLE_SANITIZE_ADDR "Enable address sanitizer" ON)
+option(CRS_ENABLE_SANITIZE_UNDEF "Enable sanitize undefined" ON)
+
+
 #. Load and run our custom cmake module 
 include(AddGitSubmodule)
 #. Load and run cmake built-in module FetchContent
@@ -46,6 +50,11 @@ include(Docs)
 
 if(CRS_ENABLE_WARNINGS)
     include(CrsWarnings)
+endif()
+
+if(${CRS_ENABLE_SANITIZE_ADDR} OR ${CRS_ENABLE_SANITIZE_UNDEF})
+    include(CrsSanitizers)
+    crs_add_sanitizer_flags()
 endif()
 
 #. call cmake built-in module functions

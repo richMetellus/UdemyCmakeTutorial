@@ -13,6 +13,11 @@ int main()
     std::cout << "Project version: " << project_version << '\n';
     
     // int i; // unused variable
+
+    int x[2] = {0}; // define an array of size 2; x is set
+    x[1] = 0xDEAFD012;
+    std::cout << "address of x = " << &x << "; x[0]: " << x[0] << ", x[1]: " << x[1] << '\n'; // x is used/read here to avoid compiler warnings.
+    x[2] = 0xDEADBEEF; // add value outside the array bounds => runtime error, undefined behavior
     
     std::cout << "NLOHMANN JSON Lib Version:" << NLOHMANN_JSON_VERSION_MAJOR << "." 
               << NLOHMANN_JSON_VERSION_MINOR << "."
