@@ -26,3 +26,12 @@ if (CRS_ENABLE_LTO)
         ${CRS_ENABLE_LTO}
     )
 endif()
+
+#[[
+using MSVC compiler kit.
+At configuration phase, Cmake does not know the build type,
+so this block is skipped.
+]]
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(${MY_LIB_NAME} PUBLIC "/WX") # make PUBLIC since the error will come from main
+endif()
