@@ -30,8 +30,9 @@ endif()
 #[[
 using MSVC compiler kit.
 At configuration phase, Cmake does not know the build type,
-so this block is skipped.
+if-else block checking for CMAKE_BUILD_TYPE is skipped even with 
+the -DCMAKE_BUILD_TYPE
+using generator expression we can pass compiler flags based on
+the build type.
 ]]
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(${MY_LIB_NAME} PUBLIC "/WX") # make PUBLIC since the error will come from main
-endif()
+target_compile_options(${MY_LIB_NAME} PUBLIC $<$<CONFIG:Debug>:/WX>) # use PUBLIC since the error will come from main
