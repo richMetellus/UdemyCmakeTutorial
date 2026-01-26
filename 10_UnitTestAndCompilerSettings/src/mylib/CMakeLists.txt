@@ -19,3 +19,10 @@ endif()
 
 # Enable print_hello_world block
 target_compile_definitions(${MY_LIB_NAME} PUBLIC PRINTER_ACTIVE)
+
+if (CRS_ENABLE_LTO)
+    crs_target_enable_lto(
+        ${MY_LIB_NAME}
+        ${CRS_ENABLE_LTO}
+    )
+endif()

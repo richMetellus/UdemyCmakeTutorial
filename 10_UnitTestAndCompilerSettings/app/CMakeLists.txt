@@ -24,3 +24,10 @@ if (${CRS_ENABLE_WARNINGS})
         ${CRS_ENABLE_WARNINGS_AS_ERRORS}
     )
 endif()
+
+if (CRS_ENABLE_LTO)
+    crs_target_enable_lto(
+        ${MY_EXECUTABLE_NAME}
+        ${CRS_ENABLE_LTO}
+    )
+endif()

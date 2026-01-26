@@ -40,6 +40,7 @@ option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON) # t
 option(CRS_ENABLE_SANITIZE_ADDR "Enable address sanitizer" ON)
 option(CRS_ENABLE_SANITIZE_UNDEF "Enable sanitize undefined" ON)
 
+option(CRS_ENABLE_LTO "Enable Linked Time Optimization" ON)
 
 #. Load and run our custom cmake module 
 include(AddGitSubmodule)
@@ -55,6 +56,10 @@ endif()
 if(${CRS_ENABLE_SANITIZE_ADDR} OR ${CRS_ENABLE_SANITIZE_UNDEF})
     include(CrsSanitizers)
     crs_add_sanitizer_flags()
+endif()
+
+if(CRS_ENABLE_LTO)
+    include(CrsLTO)
 endif()
 
 #. call cmake built-in module functions
