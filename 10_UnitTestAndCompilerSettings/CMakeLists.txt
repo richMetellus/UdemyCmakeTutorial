@@ -35,7 +35,7 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" ON)
 option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(CRS_ENABLE_WARNINGS "Enable compiler warnings" ON) # This should always be enabled
-option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON) # this option is up to you..too strict
+option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF) # this option is up to you..too strict
 
 option(CRS_ENABLE_SANITIZE_ADDR "Enable address sanitizer" ON)
 option(CRS_ENABLE_SANITIZE_UNDEF "Enable sanitize undefined" ON)
