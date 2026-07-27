@@ -6,7 +6,7 @@ BUILD_DIR := build
 $(shell mkdir -p $(BUILD_DIR))
 
 dependency-graph:
-	cd $(BUILD_DIR) && cmake .. -DIS_COMPILE_EXECUTABLE_SET=ON --graphviz=depGraph.dot && dot -Tpng depGraph.dot -o depGraphImage.png
+	cd $(BUILD_DIR) && cmake .. -DCRS_IS_COMPILE_EXECUTABLE_SET=ON --graphviz=depGraph.dot && dot -Tpng depGraph.dot -o depGraphImage.png
 
 clean:
 	@echo "deleting build directory"

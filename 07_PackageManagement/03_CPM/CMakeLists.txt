@@ -32,8 +32,8 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 # -------------------------------
 # with options think boolean
 #       option_variable name        optional description              default value
-option(IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" ON)
-option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
+option(CRS_IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" ON)
+option(CRS_ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(CRS_ENABLE_WARNINGS "Enable compiler warnings" ON) # This should always be enabled
 option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF) # this option is up to you..too strict
 
@@ -41,13 +41,14 @@ option(CRS_ENABLE_SANITIZE_ADDR "Enable address sanitizer" ON)
 option(CRS_ENABLE_SANITIZE_UNDEF "Enable sanitize undefined" ON)
 
 option(CRS_ENABLE_LTO "Enable Linked Time Optimization" ON)
+option(CRS_USE_CPM "Whether to use CPM as the package manager" ON)
 
 #. Load and run our custom cmake module 
-include(AddGitSubmodule)
+include(CrsAddGitSubmodule)
 #. Load and run cmake built-in module FetchContent
 include(FetchContent)
 #. Load and run custom target to build documentation 
-include(Docs)
+include(CrsDocs)
 
 if(CRS_ENABLE_WARNINGS)
     include(CrsWarnings)
@@ -65,44 +66,61 @@ endif()
 #. call cmake built-in module functions
 #. Clone the github Cmake project nlohman_json non-recursively
 #. Note: Project has to be a cmake project
-FetchContent_Declare(
-    nlohman_json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.3
-    GIT_SHALLOW TRUE
-)
-#. Load the project into our build project
-FetchContent_MakeAvailable(nlohman_json)
 
-FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt
-    GIT_TAG 9.1.0
-    GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(fmt)
+if(CRS_USE_CPM)
+    message(STATUS "using CPM")
+    include(CPM)
+    cpmaddpackage("gh:nlohmann/json#v3.11.3")
+    cpmaddpackage("gh:fmtlib/fmt#9.1.0")
+    cpmaddpackage("gh:gabime/spdlog#v1.13.0")
+    cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
+    if(CRS_ENABLE_TESTING)
+        cpmaddpackage("gh:catchorg/Catch2#v3.5.3")
+        list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
+    endif()
 
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog
-    GIT_TAG v1.13.0
-    GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(spdlog)
-
-FetchContent_Declare(
-    cxxopts
-    GIT_REPOSITORY https://github.com/jarro2783/cxxopts
-    GIT_TAG v3.1.1
-    GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(cxxopts)
-
-if(ENABLE_TESTING)
+else()
+    message(STATUS "using FetchContent")
     FetchContent_Declare(
-        Catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2
-        GIT_TAG v3.5.3
+        nlohman_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.3
+        GIT_SHALLOW TRUE
+    )
+    #. Load the project into our build project
+    FetchContent_MakeAvailable(nlohman_json)
+
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt
+        GIT_TAG 9.1.0
         GIT_SHALLOW TRUE)
-    FetchContent_MakeAvailable(Catch2)
-    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+    FetchContent_MakeAvailable(fmt)
+
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG v1.13.0
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(spdlog)
+
+    FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+        GIT_TAG v3.1.1
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(cxxopts)
+
+    if(CRS_ENABLE_TESTING)
+        FetchContent_Declare(
+            Catch2
+            GIT_REPOSITORY https://github.com/catchorg/Catch2
+            GIT_TAG v3.5.3
+            GIT_SHALLOW TRUE)
+        FetchContent_MakeAvailable(Catch2)
+        list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+    endif()
+
 endif()
 
 #. Order of listing will cause a build issue if add_subdirectory(inc) comes before src. 
@@ -115,13 +133,13 @@ add_subdirectory(src)
 add_subdirectory(inc)
 add_subdirectory(config)
 
-if (IS_COMPILE_EXECUTABLE_SET)
+if (CRS_IS_COMPILE_EXECUTABLE_SET)
     add_subdirectory(app)
 else()
     message("Building the project without creating the executable")
 endif()
 
-if(ENABLE_TESTING)
+if(CRS_ENABLE_TESTING)
     include(CTest)
     enable_testing()
     add_subdirectory(tests)

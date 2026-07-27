@@ -12,7 +12,7 @@ int main()
     std::cout << "Project name: " << project_name << std::endl;
     std::cout << "Project version: " << project_version << '\n';
     
-    int i; // unused variable
+    // int i; // unused variable
 
     // uncommented the block below for verifying sanitizers
     // int x[2] = {0}; // define an array of size 2; x is set
