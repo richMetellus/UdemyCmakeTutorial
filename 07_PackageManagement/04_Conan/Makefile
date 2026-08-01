@@ -15,3 +15,15 @@ docs:
 clean:
 	@echo "deleting build directory"
 	rm -rf $(BUILD_DIR)
+
+# debug build type
+conan_d:
+	rm -rf $(BUILD_DIR)
+	mkdir $(BUILD_DIR)
+	cd $(BUILD_DIR) && conan install .. -s build_type=Debug -s compiler.cppstd=17 --output-folder=. --build missing
+
+# Release build type
+conan_r:
+	rm -rf $(BUILD_DIR)
+	mkdir $(BUILD_DIR)
+	cd $(BUILD_DIR) && conan install .. -s build_type=Release -s compiler.cppstd=17 --output-folder=. --build missing
