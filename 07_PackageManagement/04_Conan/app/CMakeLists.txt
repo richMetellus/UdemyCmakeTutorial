@@ -12,7 +12,7 @@ target_include_directories(${MY_EXECUTABLE_NAME} PUBLIC
     ${EXE_INCLUDES})
 target_link_libraries(${MY_EXECUTABLE_NAME} PUBLIC  
     ${MY_LIB_NAME}
-    nlohmann_json # link our library object file(s) ex mylib.o to the executable
+    nlohmann_json::nlohmann_json # link our library object file(s) ex mylib.o to the executable
     fmt::fmt
     spdlog::spdlog
     cxxopts::cxxopts)
