@@ -20,7 +20,7 @@ int main()
     // std::cout << "address of x = " << &x << "; x[0]: " << x[0] << ", x[1]: " << x[1] << '\n'; // x is used/read here to avoid compiler warnings.
     // x[2] = 0xDEADBEEF; // add value outside the array bounds => runtime error, undefined behavior
     
-    std::cout << "NLOHMANN JSON Lib Version:" << NLOHMANN_JSON_VERSION_MAJOR << "." 
+    std::cout << "NLOHMANN JSON Lib Version: " << NLOHMANN_JSON_VERSION_MAJOR << "." 
               << NLOHMANN_JSON_VERSION_MINOR << "."
               << NLOHMANN_JSON_VERSION_PATCH << "\n";
 
