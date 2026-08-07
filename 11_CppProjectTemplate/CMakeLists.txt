@@ -19,8 +19,6 @@ project(
 set(CMAKE_CXX_STANDARD          17) #override the compiler default standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #required a compiler that has fully implemented the C++ standard 17
 set(CMAKE_CXX_EXTENSIONS        OFF) #turn off GCC C++ extensions
-#. Add our customs cmake module, to cmake search path
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Custom Variable names
 #--------------------------
 # variable name      value
@@ -35,18 +33,22 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 option(CRS_IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" ON)
 option(CRS_ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(CRS_ENABLE_WARNINGS "Enable compiler warnings" ON) # This should always be enabled
-option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF) # this option is up to you..too strict
+option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON) # this option is up to you..too strict
 
 option(CRS_ENABLE_SANITIZE_ADDR "Enable address sanitizer" OFF)
 option(CRS_ENABLE_SANITIZE_UNDEF "Enable sanitize undefined" ON)
+option(CRS_ENABLE_SANITIZE_LEAK "Enable leak sanitize (Gcc/Clang only)." OFF)
+option(CRS_ENABLE_SANITIZE_THREAD "Enable thread sanitize (Gcc/Clang only)." OFF)
 
 option(CRS_ENABLE_LTO "Enable Linked Time Optimization" ON)
 
-option(CRS_USE_CPM "Whether to use CPM as the package manager" OFF)
+option(CRS_USE_CPM "Whether to use CPM as the package manager" ON)
 option(CRS_USE_CONAN "Whether to use Conan as the package manager" OFF)
-option(CRS_USE_VCPKG "Whether to use VCPKG" ON)
+option(CRS_USE_VCPKG "Whether to use VCPKG" OFF)
 
-
+# CMAKE MODULES
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+include(CrsConfigSafeGuards)
 #. Load and run our custom cmake module 
 include(CrsAddGitSubmodule)
 #. Load and run cmake built-in module FetchContent

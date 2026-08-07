@@ -19,15 +19,20 @@ target_link_libraries(${MY_EXECUTABLE_NAME} PUBLIC
 
 if (${CRS_ENABLE_WARNINGS})
     crs_target_set_warnings(
+        TARGET
         ${MY_EXECUTABLE_NAME}
+        ENABLE
         ${CRS_ENABLE_WARNINGS}
+        AS_ERRORS
         ${CRS_ENABLE_WARNINGS_AS_ERRORS}
     )
 endif()
 
 if (CRS_ENABLE_LTO)
     crs_target_enable_lto(
+        CRS_TARGET
         ${MY_EXECUTABLE_NAME}
+        CRS_ENABLE
         ${CRS_ENABLE_LTO}
     )
 endif()
