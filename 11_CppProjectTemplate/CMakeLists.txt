@@ -44,6 +44,9 @@ option(CRS_ENABLE_SANITIZE_THREAD "Enable thread sanitize (Gcc/Clang only)." OFF
 option(CRS_ENABLE_LTO "Enable Linked Time Optimization" ON)
 option(CRS_ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 
+option(CRS_ENABLE_CMAKE_FORMAT "Enable to add cmake-format." OFF)
+
+
 option(CRS_USE_CPM "Whether to use CPM as the package manager" ON)
 option(CRS_USE_CONAN "Whether to use Conan as the package manager" OFF)
 option(CRS_USE_VCPKG "Whether to use VCPKG" OFF)
@@ -62,6 +65,8 @@ include(CrsTools)
 if(CRS_ENABLE_WARNINGS)
     include(CrsWarnings)
 endif()
+
+crs_add_cmake_format_target()
 
 if(${CRS_ENABLE_SANITIZE_ADDR} OR ${CRS_ENABLE_SANITIZE_UNDEF})
     include(CrsSanitizers)
