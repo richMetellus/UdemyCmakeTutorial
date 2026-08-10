@@ -32,3 +32,7 @@ if (CRS_ENABLE_LTO)
         ${CRS_ENABLE_LTO}
     )
 endif()
+
+if(${CRS_ENABLE_CLANG_TIDY})
+    crs_add_clang_tidy_to_target("${MY_LIB_NAME}")
+endif()
