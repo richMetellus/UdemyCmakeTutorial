@@ -19,6 +19,8 @@ project(
 set(CMAKE_CXX_STANDARD          17) #override the compiler default standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #required a compiler that has fully implemented the C++ standard 17
 set(CMAKE_CXX_EXTENSIONS        OFF) #turn off GCC C++ extensions
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # will help clang-tidy know which files belong to your code
+
 # Custom Variable names
 #--------------------------
 # variable name      value
@@ -33,7 +35,7 @@ set(MY_EXECUTABLE_NAME MyExecutable)
 option(CRS_IS_COMPILE_EXECUTABLE_SET "Whether to compile the executable" ON)
 option(CRS_ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(CRS_ENABLE_WARNINGS "Enable compiler warnings" ON) # This should always be enabled
-option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON) # this option is up to you..too strict
+option(CRS_ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF) # this option is up to you..too strict
 
 option(CRS_ENABLE_SANITIZE_ADDR "Enable address sanitizer" OFF)
 option(CRS_ENABLE_SANITIZE_UNDEF "Enable sanitize undefined" ON)
