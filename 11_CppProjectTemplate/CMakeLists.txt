@@ -55,6 +55,7 @@ include(CrsAddGitSubmodule)
 include(FetchContent)
 #. Load and run custom target to build documentation 
 include(CrsDocs)
+include(CrsTools)
 
 if(CRS_ENABLE_WARNINGS)
     include(CrsWarnings)
