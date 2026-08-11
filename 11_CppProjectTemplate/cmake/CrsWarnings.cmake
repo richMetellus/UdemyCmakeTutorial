@@ -1,5 +1,5 @@
 #[[
-Description: This cmake user-defined function allows the user to enable compiler warnings 
+Description: This cmake user-defined function allows the user to enable compiler warnings
              as errors.
 ]]
 function(crs_target_set_warnings)
@@ -12,7 +12,8 @@ function(crs_target_set_warnings)
         ${ARGN})
 
     if(NOT ${CRS_TARGET_SET_WARNINGS_ENABLE})
-        message(STATUS "Warnings Disabled for: ${CRS_TARGET_SET_WARNINGS_TARGET}")
+        message(
+            STATUS "Warnings Disabled for: ${CRS_TARGET_SET_WARNINGS_TARGET}")
         return()
     endif()
     message(STATUS "Warnings Active for: ${CRS_TARGET_SET_WARNINGS_TARGET}")
@@ -79,7 +80,7 @@ function(crs_target_set_warnings)
     endif()
 
     # Check which compiler the user is using and set the warnings
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         set(CRS_WARNINGS ${CRS_MSVC_WARNINGS})
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         set(CRS_WARNINGS ${CRS_CLANG_WARNINGS})
@@ -89,7 +90,8 @@ function(crs_target_set_warnings)
 
     message(STATUS "Compiler Warnings flags: ${CRS_WARNINGS}")
 
-    target_compile_options(${CRS_TARGET_SET_WARNINGS_TARGET} PRIVATE ${CRS_WARNINGS})
+    target_compile_options(${CRS_TARGET_SET_WARNINGS_TARGET}
+                           PRIVATE ${CRS_WARNINGS})
     message(STATUS "Compile Options: ${CRS_WARNINGS}")
 
 endfunction(crs_target_set_warnings)

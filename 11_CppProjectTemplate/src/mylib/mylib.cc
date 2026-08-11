@@ -1,6 +1,5 @@
-#include <iostream>
-#include <cstdint>
 #include "mylib.h"
+#include <iostream>
 
 #ifdef PRINTER_ACTIVE
 /**
@@ -16,5 +15,5 @@ void print_hello_world()
 
 std::uint32_t factorial(std::uint32_t number)
 {
-  return number <= 1 ? 1 : factorial(number - 1) * number;
+    return number <= 1 ? 1 : factorial(number - 1) * number;
 }

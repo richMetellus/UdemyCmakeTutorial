@@ -11,7 +11,8 @@ function(crs_add_cmake_format_target)
         EXCLUDE
         REGEX
         "${CMAKE_SOURCE_DIR}/(build|external)/.*")
-    set(CRS_CMAKE_FILES ${CRS_ROOT_CMAKE_FILES} ${CRS_CMAKE_FILES_TXT} ${CRS_CMAKE_FILES_C})
+    set(CRS_CMAKE_FILES ${CRS_ROOT_CMAKE_FILES} ${CRS_CMAKE_FILES_TXT}
+                        ${CRS_CMAKE_FILES_C})
     find_program(CRS_CMAKE_FORMAT cmake-format)
     if(CRS_CMAKE_FORMAT)
         message(STATUS "Added Cmake Format")
@@ -93,12 +94,14 @@ function(crs_add_clang_tidy_to_target crs_target)
     find_program(CRS_CLANGTIDY_FOUND clang-tidy)
     if(CRS_CLANGTIDY_FOUND)
         if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-            message(STATUS "Added MSVC ClangTidy (VS GUI only) for: ${crs_target}")
+            message(
+                STATUS "Added MSVC ClangTidy (VS GUI only) for: ${crs_target}")
             set_target_properties(
                 ${crs_target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis
-                                     false)
+                                         false)
             set_target_properties(
-                ${crs_target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis true)
+                ${crs_target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis
+                                         true)
         else()
             message(STATUS "Added Clang Tidy for Target: ${crs_target}")
             add_custom_target(

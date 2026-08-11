@@ -15,7 +15,7 @@ function(crs_target_enable_lto)
     include(CheckIPOSupported) # include a pre-defined cmake module
     #[[
         In CheckIPOSupported.cmake there is a function check_ipo_supported,
-        cmake will detect which compiler we are using and set the result in 
+        cmake will detect which compiler we are using and set the result in
         the variable crs_result
     ]]
     check_ipo_supported(RESULT crs_result OUTPUT crs_output)
@@ -23,8 +23,9 @@ function(crs_target_enable_lto)
     if(crs_result)
         message(STATUS "IPO/LTO is supported: ${CRS_LTO_CRS_TARGET}")
         # This predefined cmake property, INTERPROCEDURAL_OPTIMIZATION, is set if LTO is supported by the compiler
-        set_property(TARGET ${CRS_LTO_CRS_TARGET} PROPERTY INTERPROCEDURAL_OPTIMIZATION
-                                                   ${CRS_LTO_CRS_TARGET})
+        set_property(
+            TARGET ${CRS_LTO_CRS_TARGET} PROPERTY INTERPROCEDURAL_OPTIMIZATION
+                                                  ${CRS_LTO_CRS_TARGET})
     else()
         message(WARNING "IPO/LTO is not supported: ${CRS_LTO_CRS_TARGET}")
     endif()

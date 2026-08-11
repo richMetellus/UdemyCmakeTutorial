@@ -3,14 +3,17 @@ Description: This cmake user-defined function allows the user to enable
     compiler sanitizers.
 ]]
 function(crs_add_sanitizer_flags)
-    if (NOT ${CRS_ENABLE_SANITIZE_ADDR} AND NOT ${CRS_ENABLE_SANITIZE_UNDEF})
+    if(NOT ${CRS_ENABLE_SANITIZE_ADDR} AND NOT ${CRS_ENABLE_SANITIZE_UNDEF})
         message(STATUS "Sanitizers deactivated.")
         return()
     endif()
 
-    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        add_compile_options("-fno-omit-frame-pointer") # add the compiler flags for every target
-        add_link_options("-fno-omit-frame-pointer") # give the same flag to the linker
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                                "GNU")
+        add_compile_options("-fno-omit-frame-pointer"
+        )# add the compiler flags for every target
+        add_link_options("-fno-omit-frame-pointer"
+        )# give the same flag to the linker
 
         if(${CRS_ENABLE_SANITIZE_ADDR})
             message(STATUS "Activating Address Sanitizer")
@@ -23,7 +26,7 @@ function(crs_add_sanitizer_flags)
             add_compile_options("-fsanitize=undefined")
             add_link_options("-fsanitize=undefined")
         endif()
-            if(CRS_ENABLE_SANITIZE_LEAK)
+        if(CRS_ENABLE_SANITIZE_LEAK)
             add_compile_options("-fsanitize=leak")
             add_link_options("-fsanitize=leak")
         endif()
@@ -59,4 +62,3 @@ function(crs_add_sanitizer_flags)
         return()
     endif()
 endfunction(crs_add_sanitizer_flags)
-

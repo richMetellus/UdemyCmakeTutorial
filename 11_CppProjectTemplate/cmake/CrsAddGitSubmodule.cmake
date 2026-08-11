@@ -5,17 +5,17 @@ function(crs_add_git_submodule crs_relative_dir)
     #. Required full directory for this to work
     set(FULL_DIR ${CMAKE_SOURCE_DIR}/${crs_relative_dir})
 
-    #. Check if the submodule is a cmake project. use full directory path for it to work. 
-    if (NOT EXISTS ${FULL_DIR}/CMakeLists.txt)
+    #. Check if the submodule is a cmake project. use full directory path for it to work.
+    if(NOT EXISTS ${FULL_DIR}/CMakeLists.txt)
         #. call the git process to init the submodule. find_package(Git REQUIRED)
         # will set the variable ${GIT_EXECUTABLE}
-        execute_process(COMMAND ${GIT_EXECUTABLE}
-            submodule update --init --recursive -- ${crs_relative_dir}
-            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+        execute_process(
+            COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive --
+                    ${crs_relative_dir} WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
     endif()
 
     #. Verify the directory is a cmake project
-    if (EXISTS ${FULL_DIR}/CMakeLists.txt)
+    if(EXISTS ${FULL_DIR}/CMakeLists.txt)
         message("Submodule is CMake Project: ${FULL_DIR}/CMakeLists.txt")
         add_subdirectory(${FULL_DIR})
     else()
