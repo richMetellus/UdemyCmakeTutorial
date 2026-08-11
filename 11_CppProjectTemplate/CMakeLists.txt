@@ -45,7 +45,7 @@ option(CRS_ENABLE_LTO "Enable Linked Time Optimization" ON)
 option(CRS_ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 
 option(CRS_ENABLE_CMAKE_FORMAT "Enable to add cmake-format." OFF)
-
+option(CRS_ENABLE_CLANG_FORMAT "Enable to add clang-format." OFF)
 
 option(CRS_USE_CPM "Whether to use CPM as the package manager" ON)
 option(CRS_USE_CONAN "Whether to use Conan as the package manager" OFF)
@@ -67,6 +67,7 @@ if(CRS_ENABLE_WARNINGS)
 endif()
 
 crs_add_cmake_format_target()
+crs_add_clang_format_target()
 
 if(${CRS_ENABLE_SANITIZE_ADDR} OR ${CRS_ENABLE_SANITIZE_UNDEF})
     include(CrsSanitizers)
@@ -115,7 +116,7 @@ else()
         nlohman_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
         GIT_TAG v3.11.3
-        GIT_SHALLOW TRUE
+        GIT_SHALLOW TRUE #pass the ``--depth 1`` to git to only clone the recent commit tag, save bandwidth
     )
     #. Load the project into our build project
     FetchContent_MakeAvailable(nlohman_json)

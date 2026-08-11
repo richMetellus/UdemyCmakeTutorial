@@ -36,6 +36,45 @@ function(crs_add_cmake_format_target)
     endif()
 endfunction()
 
+function(crs_add_clang_format_target)
+    if(NOT ${CRS_ENABLE_CLANG_FORMAT})
+        return()
+    endif()
+    find_package(Python3 COMPONENTS Interpreter)
+    if(NOT ${Python_FOUND})
+        return()
+    endif()
+    file(GLOB_RECURSE CRS_CMAKE_FILES_CC "*/*.cc")
+    file(GLOB_RECURSE CRS_CMAKE_FILES_CPP "*/*.cpp")
+    file(GLOB_RECURSE CRS_CMAKE_FILES_H "*/*.h")
+    file(GLOB_RECURSE CRS_CMAKE_FILES_HPP "*/*.hpp")
+    set(CRS_CPP_FILES
+        ${CRS_CMAKE_FILES_CC}
+        ${CRS_CMAKE_FILES_CPP}
+        ${CRS_CMAKE_FILES_H}
+        ${CRS_CMAKE_FILES_HPP})
+    list(
+        FILTER
+        CRS_CPP_FILES
+        EXCLUDE
+        REGEX
+        "${CMAKE_SOURCE_DIR}/(build|external)/.*")
+    find_program(CRS_CLANGFORMAT_FOUND clang-format)
+    if(CRS_CLANGFORMAT_FOUND)
+        message(STATUS "Added Clang Format")
+        add_custom_target(
+            crs_run_clang_format
+            COMMAND
+                ${Python3_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py ${CRS_CPP_FILES}
+                --in-place
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            USES_TERMINAL)
+    else()
+        message(WARNING "Clang-format NOT FOUND")
+    endif()
+endfunction()
+
 function(crs_add_clang_tidy_to_target crs_target)
     get_target_property(CRS_TARGET_SOURCES ${crs_target} SOURCES)
     list(
